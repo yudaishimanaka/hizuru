@@ -4,6 +4,11 @@ import (
 	"fmt"
 )
 
+var (
+	Version  = "unset"
+	Revision = "unset"
+)
+
 func main() {
-	fmt.Println("Hello, World!")
+	fmt.Printf("hizuru version: %s-%s\n", Version, Revision)
 }
