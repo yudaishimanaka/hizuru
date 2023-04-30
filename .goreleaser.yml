@@ -8,7 +8,7 @@ builds:
   - main: .
     binary: hizuru
     ldflags:
-      - -s -W
+      - -s -w
       - -X main.Version={{.Version}}
       - -X main.Revision={{.ShortCommit}}
     env:
