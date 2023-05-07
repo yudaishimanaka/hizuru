@@ -22,8 +22,8 @@ var (
 var isPreview bool
 
 const (
-	windowsTerminalDefault = "/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/state.json"
-	windowsTerminalPreview = "/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/state.json"
+	windowsTerminalDefault = "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\state.json"
+	windowsTerminalPreview = "\\Packages\\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\\LocalState\\state.json"
 )
 
 type image struct {
@@ -148,7 +148,7 @@ func main() {
 						return err
 					}
 
-					fmt.Println(img.Name)
+					fmt.Printf("%s\n", img.Name)
 
 					// プレビューフラグを用いてsettings.jsonのPATHを生成
 					var settingFilePath string
@@ -158,7 +158,7 @@ func main() {
 						settingFilePath = localAppData + windowsTerminalDefault
 					}
 
-					fmt.Println(settingFilePath)
+					fmt.Printf("%s\n", settingFilePath)
 
 					return nil
 				},
