@@ -148,7 +148,7 @@ func main() {
 						return err
 					}
 
-					fmt.Printf("%s\n", img.Name)
+					fmt.Fprintln(os.Stdout, img.Name)
 
 					// プレビューフラグを用いてsettings.jsonのPATHを生成
 					var settingFilePath string
@@ -158,7 +158,7 @@ func main() {
 						settingFilePath = localAppData + windowsTerminalDefault
 					}
 
-					fmt.Printf("%s\n", settingFilePath)
+					fmt.Fprintln(os.Stdout, settingFilePath)
 
 					return nil
 				},
