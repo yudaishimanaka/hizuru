@@ -161,11 +161,16 @@ func main() {
 					}
 
 					// settings.jsonをロード
-					byteArray, _ := ioutil.ReadFile(settingFilePath)
+					byteArray, err := ioutil.ReadFile(settingFilePath)
+					if err != nil {
+						fmt.Println("Configuration file could not be read, please check if the --preview flag is required")
+						return nil
+					}
+
 					var jsonObj interface{}
 					_ = json.Unmarshal(byteArray, &jsonObj)
 
-					fmt.Println(jsonObj)
+					fmt.Println(jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"])
 
 					return nil
 				},
