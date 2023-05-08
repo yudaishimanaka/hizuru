@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"mime"
 	"os"
@@ -158,7 +160,12 @@ func main() {
 						settingFilePath = localAppData + windowsTerminalDefault
 					}
 
-					fmt.Fprintln(os.Stdout, settingFilePath)
+					// settings.jsonをロード
+					byteArray, _ := ioutil.ReadFile(settingFilePath)
+					var jsonObj interface{}
+					_ = json.Unmarshal(byteArray, &jsonObj)
+
+					fmt.Println(jsonObj)
 
 					return nil
 				},
