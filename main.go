@@ -188,7 +188,7 @@ func main() {
 					var jsonObj interface{}
 					_ = json.Unmarshal(byteArray, &jsonObj)
 
-					jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"] = localAppData + "\\" + img.Name
+					jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"] = hizuruPath + "\\" + img.Name
 
 					err = saveJSON(jsonObj, settingFilePath)
 					if err != nil {
