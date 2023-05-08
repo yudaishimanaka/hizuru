@@ -24,8 +24,8 @@ var (
 var isPreview bool
 
 const (
-	windowsTerminalDefault = "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\state.json"
-	windowsTerminalPreview = "\\Packages\\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\\LocalState\\state.json"
+	windowsTerminalDefault = "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json"
+	windowsTerminalPreview = "\\Packages\\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\\LocalState\\settings.json"
 )
 
 type image struct {
@@ -95,6 +95,23 @@ func selectImage(imgList []image) (image, error) {
 	return imgList[i], nil
 }
 
+func saveJSON(jsonObj interface{}, path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	defer file.Close()
+	err = json.NewEncoder(file).Encode(jsonObj)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	return nil
+}
+
 func main() {
 	// hizuruで設定するアプリケーション環境変数をロード
 	hizuruPath := os.Getenv("HIZURU_IMAGE_PATH")
@@ -150,8 +167,6 @@ func main() {
 						return err
 					}
 
-					fmt.Fprintln(os.Stdout, img.Name)
-
 					// プレビューフラグを用いてsettings.jsonのPATHを生成
 					var settingFilePath string
 					if isPreview {
@@ -160,17 +175,26 @@ func main() {
 						settingFilePath = localAppData + windowsTerminalDefault
 					}
 
+					// debug
+					// settingFilePath = "/home/yudai/settings.json"
+
 					// settings.jsonをロード
 					byteArray, err := ioutil.ReadFile(settingFilePath)
 					if err != nil {
 						fmt.Println("Configuration file could not be read, please check if the --preview flag is required")
-						return nil
+						return err
 					}
 
 					var jsonObj interface{}
 					_ = json.Unmarshal(byteArray, &jsonObj)
 
-					fmt.Println(jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"])
+					jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"] = localAppData + "\\" + img.Name
+
+					err = saveJSON(jsonObj, settingFilePath)
+					if err != nil {
+						fmt.Println(err)
+						return err
+					}
 
 					return nil
 				},
