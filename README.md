@@ -7,7 +7,7 @@ Simple Windows Terminal background image changer.
 With a few settings and a single command, you can switch to your favorite background image at any time.  
 
 ## Demo
-<video autoplay loop src="./hizuru-demo.mp4" ></video>
+https://github.com/yudaishimanaka/hizuru/assets/11958380/6dec801a-205e-4dbd-9a25-9bac4f15ac6f
 
 ## Requirement
 All you need is a [Windows Terminal](https://github.com/microsoft/terminal).
