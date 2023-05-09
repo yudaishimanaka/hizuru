@@ -185,8 +185,14 @@ func main() {
 					var jsonObj interface{}
 					_ = json.Unmarshal(byteArray, &jsonObj)
 
-					jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"] = hizuruPath + "\\" + img.Name
+					// キーチェックして存在した場合は更新、そうでない場合はキーに対してバリューを追加
+					if _, ok := jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"]; ok {
+						jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"] = hizuruPath + "\\" + img.Name
+					} else {
+						jsonObj.(map[string]interface{})["profiles"].(map[string]interface{})["defaults"].(map[string]interface{})["backgroundImage"] = hizuruPath + "\\" + img.Name
+					}
 
+					// 保存
 					err = saveJSON(jsonObj, settingFilePath)
 					if err != nil {
 						fmt.Println(err)
