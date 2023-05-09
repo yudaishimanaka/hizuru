@@ -122,14 +122,14 @@ func main() {
 
 	// LOCALAPPDATAをロード
 	localAppData := os.Getenv("LOCALAPPDATA")
-	// if localAppData == "" {
-	// 	fmt.Println("LOCALAPPDATA environment variable does not exist")
-	// 	return
-	// }
+	if localAppData == "" {
+		fmt.Println("LOCALAPPDATA environment variable does not exist")
+		return
+	}
 
 	app := &cli.App{
 		Name:    "hizuru",
-		Version: Version + Revision,
+		Version: Version + " " + Revision,
 		Usage:   "Change the background image of the Windows Terminal",
 		// プレビュー版用のフラグ
 		Flags: []cli.Flag{
@@ -174,9 +174,6 @@ func main() {
 					} else {
 						settingFilePath = localAppData + windowsTerminalDefault
 					}
-
-					// debug
-					// settingFilePath = "/home/yudai/settings.json"
 
 					// settings.jsonをロード
 					byteArray, err := ioutil.ReadFile(settingFilePath)
