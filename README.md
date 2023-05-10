@@ -21,7 +21,7 @@ All you need is a [Windows Terminal](https://github.com/microsoft/terminal).
     ```
 
 ## Usage
-Place the background image directly under the HIZURU_IMAGE_PATH directory, then simply run the command.  
+Place the background image directly under the `HIZURU_IMAGE_PATH` directory, then simply run the command.  
 
 Only one subcommand and flag.  
 
